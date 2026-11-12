@@ -6,3 +6,11 @@ resource "aws_instance" "frontend" {
         Name= "frontend"
     }
 }
+
+resource "aws_route53_record" "frontend53" {
+   name = "frontend.harshitsompura.online"
+   type = "A"
+   ttl = 300
+   records= {aws_instance.frontend.private_ip}
+
+}
