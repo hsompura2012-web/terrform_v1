@@ -8,6 +8,7 @@ resource "aws_instance" "frontend" {
 }
 
 resource "aws_route53_record" "frontend53" {
+   zone_id = "Z03480463A1JR2GW8CJL3" 
    name = "frontend.harshitsompura.online"
    type = "A"
    ttl = 300
