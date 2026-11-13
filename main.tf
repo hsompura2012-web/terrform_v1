@@ -14,6 +14,6 @@ resource "aws_route53_record" "ec2_53" {
    name = "${each.key}.harshitsompura.online"
    type = "A"
    ttl = 300
-   records = [aws_instance.main[each.key].private_ip]
+   records = [aws_instance.${each.key}.private_ip]
 
 }
