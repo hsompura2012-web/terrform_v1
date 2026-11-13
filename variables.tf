@@ -11,6 +11,7 @@ variable "zone_id" {
 }
 
 variable "component" {
+    default = {
      frontend=""
      mongodb=""
      catalogue=""
@@ -22,4 +23,5 @@ variable "component" {
      rabbitmq=""
      payment=""
      dispatch=""     
+}
 }
