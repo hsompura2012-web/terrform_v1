@@ -34,7 +34,7 @@ resource "null_resource" "ansible" {
     type     = "ssh"
     user     = "ec2-user"
     password = "DevOps321"
-    host     = [aws_instance.ec2[each.key].public_ip]
+    host     = aws_instance.ec2[each.key].public_ip
   }
 
   inline = [
