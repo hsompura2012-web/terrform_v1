@@ -26,9 +26,9 @@ resource "null_resource" "ansible" {
     aws_instance.ec2,
     aws_route53_record.ec2_53
   ]
-  
-  provisioner "remote-exec" {
   for_each = var.component
+  provisioner "remote-exec" {
+  
   connection {
     type     = "ssh"
     user     = "ec2-user"
