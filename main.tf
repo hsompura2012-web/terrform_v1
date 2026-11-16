@@ -8,21 +8,6 @@ resource "aws_instance" "ec2" {
     }
 
     
-    provisioner "remote-exec" {
-
-  connection {
-    type     = "ssh"
-    user     = "ec2-user"
-    password = "DevOps321"
-    host     = self.public_ip
-  }
-
-  inline = [
-    "sudo dnf install python3.13-pip -y",
-    "pip3.13 install ansible",
-    "ansible-pull -U https://github.com/hsompura2012-web/Ansible_v3.git -i localhost, main.yaml -e component=${each.key}"
-  ]
-}
 }
 
 resource "aws_route53_record" "ec2_53" {
@@ -32,6 +17,31 @@ resource "aws_route53_record" "ec2_53" {
    type = "A"
    ttl = 300
    records = [aws_instance.ec2[each.key].private_ip]
+
+}
+
+resource "null_resource" "ansible" {
+  
+  depends_on = [
+    aws_instance.ec2
+    aws_route53_record.ec2_53
+  ]
+  
+  provisioner "remote-exec" {
+  for_each = var.component
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = [aws_instance.ec2[each.key].private_ip]
+  }
+
+  inline = [
+    "sudo dnf install python3.13-pip -y",
+    "pip3.13 install ansible",
+    "ansible-pull -U https://github.com/hsompura2012-web/Ansible_v3.git -i localhost, main.yaml -e component=${each.key}"
+  ]
+}
 
 }
 
