@@ -10,7 +10,9 @@ variable "zone_id" {
     default="Z03480463A1JR2GW8CJL3"
 }
 
-
+variable "sg_id" {
+    default =["sg-0c3225d8fa3ef21d2"]
+}
 
 
 variable "component" {
