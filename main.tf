@@ -23,7 +23,7 @@ resource "aws_route53_record" "ec2_53" {
 resource "null_resource" "ansible" {
   
   depends_on = [
-    aws_instance.ec2
+    aws_instance.ec2,
     aws_route53_record.ec2_53
   ]
   
